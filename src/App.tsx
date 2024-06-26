@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 
 import PublicRoutes from "routes/PublicRoutes";
 // import PrivateRoutes from 'routes/PrivateRoutes'
@@ -21,7 +21,7 @@ export const App = () => {
         <div>© Маркетплейс MW</div>
       </Footer>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

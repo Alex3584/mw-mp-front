@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import React, { lazy } from 'react'
 import { Route, Navigate, Routes, useLocation } from 'react-router-dom'
 
 import { checkPathMatch, paths } from './helpers'
