@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import ProductCard from "blocks/ProductCard";
-// import { selectFavorites } from "features/Favorites/selectors";
+import { selectFavorites } from "features/Favorites/selectors";
 import { PageWrapper } from "App.styled";
 import { ProductGroup, ProductGroupContainer } from "./styled";
 import { dummyProducts } from "pages/dummyProducts";
