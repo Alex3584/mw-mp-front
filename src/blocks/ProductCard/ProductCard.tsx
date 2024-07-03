@@ -1,10 +1,14 @@
 import React from "react";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import Button from 'components/Button';
-import { addToFavorites, removeFromFavorites } from "features/Favorites/reducer";
+import { useAppDispatch } from "store";
+import Button from "components/Button";
+import { paths } from "routes/helpers";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "features/Favorites/reducer";
 import { ReactComponent as HeartEmpty } from "img/heart-empty.svg";
 import { ReactComponent as HeartFilled } from "img/heart-filled.svg";
 import {
@@ -18,21 +22,19 @@ import {
   Title,
   Desc,
   BtnsWrapper,
-} from './styled'
-
+} from "./styled";
 
 interface I_ProductCardProps {
-  id: number
-  slug?: string
-  image: string
-  price: number
-  priceDiscounted?: number
-  title: string
-  description: string
-  // isLiked: boolean
-  hideLikes?: boolean
+  id: number;
+  slug?: string;
+  image: string;
+  price: number;
+  priceDiscounted?: number;
+  title: string;
+  description: string;
+  isLiked: boolean;
+  hideLikes?: boolean;
 }
-
 
 const ProductCard: React.FC<I_ProductCardProps> = ({
   id,
@@ -42,52 +44,48 @@ const ProductCard: React.FC<I_ProductCardProps> = ({
   priceDiscounted,
   title,
   description,
-  // isLiked,
+  isLiked,
   hideLikes = false,
 }) => {
- // Проверка URL
-  //  const dispatch = useDispatch();
-  //  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
 
-  //  const handleFavorites = useCallback(
-  //    (e: React.MouseEvent<HTMLElement>) => {
-  //      const { productId } = e.currentTarget.dataset;
+  const handleFavorites = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      const { productId } = e.currentTarget.dataset;
 
-  //      dispatch(
-  //        !isLiked
-  //          ? addToFavorites(+productId!)
-  //          : removeFromFavorites(+productId!)
-  //      );
-  //    },
-  //    [dispatch, isLiked]
-  //  );
+      dispatch(
+        !isLiked
+          ? addToFavorites(+productId!)
+          : removeFromFavorites(+productId!)
+      );
+    },
+    [dispatch, isLiked]
+  );
 
-  //  const isFavoritesPage = useMemo(
-  //    () => location.pathname === paths.favorites,
-  //    [location.pathname]
-  //  );
+  const isFavoritesPage = useMemo(
+    () => location.pathname === paths.favorites,
+    [location.pathname]
+  );
 
-  //  const removeFavorite = useCallback(
-  //    (e: React.MouseEvent<HTMLElement>) => {
-  //      dispatch(removeFromFavorites(+e.currentTarget.dataset.productId!));
-  //    },
-  //    [dispatch]
-  //  );
+  const removeFavorite = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      dispatch(removeFromFavorites(+e.currentTarget.dataset.productId!));
+    },
+    [dispatch]
+  );
 
   return (
     <Wrapper>
       {!hideLikes && (
-        <LikeWrapper
-          data-product-id={id}
-          // onClick={handleFavorites}
-        >
-          {/*{isLiked ? <HeartFilled /> : <HeartEmpty />}*/}
+        <LikeWrapper data-product-id={id} onClick={handleFavorites}>
+          {isLiked ? <HeartFilled /> : <HeartEmpty />}
         </LikeWrapper>
       )}
 
       <Link to={`/product/${slug || id}`}>
         <Image
-          src={`${process.env.REACT_APP_API_URL}/images/products/${image}`}
+          src={`${image}`}
         />
       </Link>
 
@@ -108,10 +106,10 @@ const ProductCard: React.FC<I_ProductCardProps> = ({
 
       <Desc>{description}</Desc>
 
-      {/*<BtnsWrapper>*/}
-      <Button block>В корзину</Button>
+      <BtnsWrapper>
+        <Button block>В корзину</Button>
 
-      {/*  {isFavoritesPage && (
+        {isFavoritesPage && (
           <Button
             type="danger"
             block
@@ -121,7 +119,7 @@ const ProductCard: React.FC<I_ProductCardProps> = ({
             Удалить
           </Button>
         )}
-      </BtnsWrapper>*/}
+      </BtnsWrapper>
     </Wrapper>
   );
 };

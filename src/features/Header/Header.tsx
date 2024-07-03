@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "store";
 import { paths } from "routes/helpers";
 import Button from "components/Button";
-// import Input from "components/Input";
+import Input from "components/Input";
 import { selectIsLogged } from "features/App/selectors";
 import { selectFavorites } from "features/Favorites/selectors";
 import UserDropdownMenu from "./UserDropdownMenu";
@@ -66,12 +66,12 @@ const Header: React.FC = () => {
       </LeftSide>
 
       <SearchWrapper>
-        {/*<Input
+        <Input
           value={searchInput}
           onChange={changeSearchInput}
           isGhost
           placeholder="Поиск товаров"
-        />*/}
+        />
 
         <BtnSearch />
       </SearchWrapper>

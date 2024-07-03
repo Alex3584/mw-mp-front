@@ -1,9 +1,9 @@
 export interface I_ProductDetails {
-  id: number
-  slug?: string
-  imgSrc: string
-  priceRegular: number
-  priceDiscounted?: number
-  title: string
-  desc: string
+  id: number;
+  slug?: string;
+  image: string;
+  price: number;
+  priceDiscounted?: number;
+  title: string;
+  description: string;
 }

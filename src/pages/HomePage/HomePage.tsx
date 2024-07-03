@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import ProductCard from "blocks/ProductCard";
+import { useAppSelector } from "store";
 import { selectFavorites } from "features/Favorites/selectors";
 import { PageWrapper } from "App.styled";
 import { ProductGroup, ProductGroupContainer } from "./styled";
 import { dummyProducts } from "pages/dummyProducts";
 
 const HomePage: React.FC = () => {
+  const idsInFavorites = useAppSelector(selectFavorites);
+
   const [products, setProducts] = useState<any[]>();
 
   return (
@@ -25,7 +28,7 @@ const HomePage: React.FC = () => {
               <ProductCard
                 {...p}
                 key={p.id}
-                // isLiked={idsInFavorites.includes(p.id)}
+                isLiked={idsInFavorites.includes(p.id)}
               />
             ))}
           </ProductGroupContainer>
